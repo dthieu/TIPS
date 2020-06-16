@@ -1,0 +1,1397 @@
+
+tool diff
+- meld
+- kdiff3
+
+
+
+
+
+
+
+
+
+
+
+
+Android:
+
+Android.mk
+- print log: 
+$(info Day la local path: $(LOCAL_PATH))
+$(error Day la local path: $(LOCAL_PATH))
+$(warning Day la local path: $(LOCAL_PATH))
+
+
+
+open file manager at .:
+
+$ xdg-open .
+
+'
+PRINT LOG
+make clean && make >> log.log 2>&1
+'
+Some stupid question
+1. printf is for C or C++?!
+// printf() is a function
+// cout is a object for which << operator is overloaded, which send output to standard output device.
+2. g++ build C source OK?
+// Insert c++ code in C source code
+  #ifdef __cplusplus
+  // the C++ compiler will see this causing all declarations in the block to have C linkage,
+  // the C compiler won't see it (skipped by the preprocessor)
+  extern "C" {
+  #endif
+  
+  int module_foo(int arg);
+  
+  #ifdef __cplusplus
+  }
+  #endif
+
+3. ASSERT vs EXPECT in UT test, same?!
+// ASSER for informing an error, and expect for checking
+// - Use EXPECT instead of ASSERT to see more failures per test
+// Summary:
+// * ASSERT : Fails fast, aborting the current function.
+// * EXPECT : Continues after the failure.
+
+'
+link lib
+$ ldd demo_test
+        linux-vdso.so.1 =>  (0x00007fff53dfe000)
+        libgtest.so.0 => /opt/gtest/lib/libgtest.so.0 (0x00007f8b18484000)
+        libgtest_main.so.0 => /opt/gtest/lib/libgtest_main.so.0 (0x00007f8b18282000)
+        libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f8b18047000)
+        libstdc++.so.6 => /usr/lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007f8b17d42000)
+        libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f8b17b2c000)
+        libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f8b17763000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007f8b186d3000)
+        libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f8b1745c000)
+- Create link:
+$ ln -s libgtest.so.0.0.0 libgtest.so
+$ ln -s libgtest.so.0.0.0 libgtest.so.0
+$ ln -s libgtest_main.so.0.0.0 libgtest_main.so
+$ ln -s libgtest_main.so.0.0.0 libgtest_main.so.0
+---
+libgtest_main.so -> libgtest_main.so.0.0.0*
+libgtest_main.so.0 -> libgtest_main.so.0.0.0*
+libgtest_main.so.0.0.0*
+libgtest.so -> libgtest.so.0.0.0*
+libgtest.so.0 -> libgtest.so.0.0.0*
+libgtest.so.0.0.0*
+
+'
+32 bit or 64 bit
+$ readelf -h <file> | grep Class
+
+'
+How to use Minicom
+$ minicom -D /dev/ttyUSB1 # Choose corresponding USB
+$ Ctrl+A, Ctrl+O
+$ E -> Enter, D -> Enter : select baudrate,...
+
+locked? -> rm, kill
+ls -la /var/lock/LCK..ttyUSB1 
+rm /var/lock/LCK..ttyUSB1 
+ps -A | grep minicom
+
+'
+document common SW
+- RVC-DMS - Documents\1. General Documents\010_ENG\050_Software\2_SW Development Process\08_Training\Training for ww process
+- RVC-DMS - Documents\1. General Documents\010_ENG\050_Software\2_SW Development Process\01_Common\Meeting Minute
+- RVC-DMS - Documents\1. General Documents\010_ENG\050_Software\2_SW Development Process\04_Common Experiences\05_5-Why Analysis
+
+
+'
+Library
+
+EABI  Embedded-Application Binary Interface
+
+To create the shared library (Linux only):
+$ gcc -g -fPIC -Wall -Werror -Wextra -pedantic *.c -shared -o liball.so 
+-> "-g"     : includes debugging information in the compiled program.
+-> "-fPIC"  : “Position Independent Code” generation, a requirement for shared 
+              libraries. Because it’s impossible to know where the shared library code 
+              will be, this flag allows the code to be located at any virtual address at runtime.
+-> "-shared": creates the shared library (shared libraries have the prefix 
+    lib and suffix .so [for shared object].
+'
+
+Sequence diagram
+---
++ alt: is used to describe alternative scenarios of a workflow. Only one of the options will be executed.
++ opt: is used to describe optional step in workflow.
+For example, for online shop purchase sequence diagram you may use opt to describe how user can add 
+gift wrapping if she wishes. alt may be used to describe two variants of payment: using credit card 
+or wire money transfer.
+
+'
+Read share lib file (*.so)
+$ readelf -a lib.so
+
+'
+Run script .bat in server
+ex: \\rvc-vnas-01\abc\a.bat
+=> cannot run
+Just add bellow code:
+
+cls
+@pushd %~dp0
+<CODE HERE>
+avc_dec.exe -i ref.264
+@popd
+
+'
+CSHRC - BASHRC
+
+vi /etc/csh.cshrc // GLOBAL
+vi ~/.mycshrc // for USER
+
+'
+VIM EDITOR
+- vim -p file1 file2
+- Change tab:
+:bf            # Go to first file.
+:bl            # Go to last file
+:bn            # Go to next file.
+:bp            # Go to previous file.
+:bw            # Close file.
+To know filename use Ctrl+G,:file or :f
+	
+
+- list all finding:
+ /ahihi
+ :g//l
+- issue 1:
+  Ctrl + S => cannot edit => hung? => no
+  That's a screen-lock. Use CTRL-q to unlock'
+- find and replace place by place
+   :%s/foo/bar/gc
+   Change each 'foo' to 'bar', but ask for confirmation first. 
+   Press 'y' for yes and 'n' for no.
+- edit on multi-line:
+  Ctrl+V → (↑ ↓ → ←) to select → Shift+I → edit → ESC
+
+- Open 2 windows (left and right):
+  :vsp <tab_to_select_file>
+  Ctrl + W + h : select left window
+  Ctrl + W + l : select right window
+
+- Select all in a file:
+  * Way1st:
+  You should yank the text to the * or + http://3.bp.blogspot.com/-Mp8uW2YRtsQ/TyVC1_JDanI/AAAAAAAAASI/hDfS9m7E3iY/s1600/vim_regs_p1.png:
+  :gg"*yG                                                                                                                                  
+  
+  Explanation:
+  + gg to get the cursor to the first character of the file
+  + "*y to start a yank command to the register * from the first line, until...
+  + G to go the end of the file
+  * Way2nd:
+  type: ggVGy
+- export diff into html file
+  vimdiff  file1.txt file2.txt -c TOhtml -c 'w! diff.html' -c 'qa!'
+
+vimdiff
+    ]c          - next difference
+    do          - diff obtain
+    [c          - previous difference
+    dp          - diff put
+    zo          - open folded text
+    zc          - close folded text
+    :diffupdate - re-scan the files for differences
+    
+    To avoid whitespace comparison:
+    :set diffopt+=iwhite
+    
+    switch between 2 windows: Ctrl+W Ctrl+W
+black box
+
+switch position:
+- '' or `` switch between the last position and the current position. 
+- CtrlI and CtrlO work through the jump list history.
+- g; and g, move through edit positions, which are also very frequently used.
+
+Like Unikey, abbreviation for vi 
+:ab <type> <display>
+ex:
+---
+:ab apple Apple Computer, Inc.
+=> i to change insert state, type: 
+apple<space> 
+=> Apple Computer, Inc.<space> 
+
+open and jump:
+$ vi +LineNumber fileName
+
+- Quick search            : Shift + 8 or Shift + 3 // *, #
+- Move to end of line     : Shift + 4 // $
+- change tougle characters: as -> AS: Shift + F3
+- delete all line in a file: gg -> dG
+- using mouse to move pointer: add "set mouse=a" in ~/.vimrc
+
+// Tutorial for VIM (dev)
+Cơ bản
+Câu lệnh  Ý nghĩa
+:e filename   Mở filename với editor
+:x  Viết vào file (nếu thay đổi đã được tạo) và thoát
+:sav filename   Lưu file dưới tên (filename)
+.   Lặp lại thao tác gần nhất ở Normal Mode
+5.  Lặp lại 5 lần thao tác gần nhất ở Normal Mode
+
+Moving File
+Câu lệnh  Ý nghĩa
+k hoặc mũi tên lên  Di chuyển lên trên 1 dòng
+j hoặc mũi tên xuống  Di chuyển xuống dưới 1 dòng
+h hoặc mũi tên sang trái  Di chuyển sang trái 1 ký tự
+l hoặc mũi tên sang phải  Di chuyển sang phải 1 ký tự
+e   Di chuyển đến cuối từ
+b   Di chuyển đến đầu từ (lùi lại)
+w   Di chuyển đến đầu từ (tiến lên)
+O   Di chuyển đến đầu dòng
+G   Di chuyển đến cuối file
+gg  Di chuyển đến đầu file
+L   Di chuyển đến cuối screen
+:59 hoặc 59G  Di chuyển đến dòng 59
+20  Di chuyển đến cột 20
+%   Di chuyển đến các ngoặc trong dòng
+[[  Nhảy đến nơi bắt đầu function
+[{  Nhảy đến nơi bắt đầu block
+
+Cut, copy & paste
+y  : Copy phần text đã chọn vào clipboard
+p  : Paste content
+dd : Cut dòng hiện tại
+yw : Copy word
+yy : Copy dòng hiện tại
+y$ : Copy đến cuối dòng
+D  : Copy tới cuối file
+
+Search
+/\<your_exact_word\> : ex: /\<main\> tim` "main" trong file
+/word  		: Tìm kiếm "word" từ trên xuống dưới
+?word  		: Tìm kiếm "word" từ dưới lên trên
+*      		: Tìm kiếm từ con trỏ
+/\cstring   : Tìm "String" cả chữ hoa lẫn chữ thường
+/jo[ha]n  	: Tìm "john" và "joan"
+/< the  	: Tìm từ bắt đầu bằng the ví dụ: theatre or then
+/the>   	: Tìm từ kết thúc bằng the ví dụ: breathe
+
+Replace
+Câu lệnh  Ý nghĩa
+:%s/old/new/g   Replace toàn bộ old thành new ở trong file
+:%s/onward/forward/gi   Replace toàn bộ onward thành forward ở trong file, case unsensitive
+%s/old/new/gc   Replace toàn bộ old thành new ở trong file kèm theo confirm
+:2,35s/old/new/g  Replace toàn bộ old thành new từ dòng 2 đến 35
+:5,$s/old/new/g   Replace toàn bộ old thành new từ dòng 5 đến EOF
+:%s/^/hello/g   Thêm vào đầu của mỗi dòng bằng hello
+:%s/$/Harry/g   Thêm vào cuối của mỗi dòng bằng Harry
+:g/string/d   Xoá toàn bộ các dòng có chứa từ string
+😒/Bill/Steve/g  Thay thế Bill thành Steve tại dòng hiện tại
+Ctrl+a  +1 cho số tại nơi con trỏ đang chỉ
+Ctrl+x  -1 cho số tại nơi con trỏ đang chỉ
+
+Case
+Vu 	: Lowercase dòng hiện tại
+VU 	: Uppercase dòng hiện tại
+g~~ : Chuyền dòng hiện tại thành Uppercase và ngược lại
+vEU : Chuyển thành Uppercase
+
+| ggguG     | Biến tất cả chữ trong file thành lowercase     | 
+| gggUG| Biến tất cả chữ trong file thành uppercase | | :set ignorecase | Ignore case trong search | | :set smartcase | Ignore case trong search ngoại trừ trong search có chữ in hoa |
+
+Đọc/Viết file
+Câu lệnh  Ý nghĩa
+:1,10 w outfile   Lưu dòng 1 đến dòng 10 trong outfile
+:1,10 w >> outfile  Nối dòng 1 đến dòng 10 trong outfile
+:r infile   Insert content vào infile
+:23r infile   Insert content vào infile sau dòng 23
+
+File explorer
+Câu lệnh  Ý nghĩa
+:e.   Mở File explorer
+:Sex  Chia đôi màn hình mở File explorer
+:Sex!   Chia đôi màn hình theo chiều dọc và mở File Explorer
+:ls   List Buffer
+:cd ..  Đến thư mục cha
+:args   List files
+:args *.php   Mở file theo định dạng mong muốn
+gf  Mở File tại nơi con trỏ chỉ
+
+Alignment
+Câu lệnh  Ý nghĩa
+:%!fmt  Align tất cả các dòng
+!}fmt   Allign tất cả các dòng tại vị trí hiện tại
+5!!fmt  Allign 5 dòng tiếp theo
+
+Tab/Windows
+Câu lệnh  Ý nghĩa
+:tabnew   Tạo tab mới
+gt  Chuyển sang tab tiếp theo
+:tabfirst   Chuyển tới Tab đầu tiên
+:tablast  Chuyển tới Tab cuối cùng
+:tabm n(position)   Chuyển vị trí tab
+
+Windows Spliting
+Câu lệnh  Ý nghĩa
+:e filename   Sửa filenane tại thời màn hình hiện tại
+:split filename   Chia đôi màn hình và mở filename
+:sp filename  Chia đôi màn hình theo chiều ngang
+:vs filename  Chia đôi màn hình theo chiều dọc
+Ctrl + w + hướng  Điều hướng giữa các màn hình đã chia
+Ctrl + w_   Max chiều dọc cho màn hình hiện tại
+Ctrl +w   Max chiều ngang cho màn hình hiện tại
+Ctrl-w=   Điều chỉnh kích thước bằng nhau cho tất cả các màn hình
+10 ctrl-w+  Thêm 10 dòng cho màn hình hiện tại
+:hide   Đóng màn hình hiện tại
+:nly  Đóng tất cả màn hình trừ màn hình hiện tại
+
+Auto-completion
+Câu lệnh  Ý nghĩa
+Ctrl+n Ctrl+p (in insert mode)  Complete word
+Ctrl+x Ctrl+l   Complete line
+:set dictionary=dict  Define dict as a dictionnary
+Ctrl+x Ctrl+k   Complete with dictionnary
+Marks
+
+Câu lệnh  Ý nghĩa
+m {a-z}   Marks vị trí hiện tại với chữ cái đc set {a -z}
+'{a-z}  Move đến vị trí
+"   Move đến vị trí trước đó
+
+Text Indent
+Câu lệnh  Ý nghĩa
+:set autoindent   Turn on auto-indent
+:set smartindent  Turn on intelligent auto-indent
+:set shiftwidth=4   Định nghĩa indent bằng 4 space
+ctrl-t, ctrl-d  Indent/un-indent trong insert mode
+>>  Indent
+<<  Un-Indent
+=%  Indent code trong dấu ngoặc
+1GVG=   Indent toàn bộ file
+
+Syntax highlighting
+Câu lệnh  Ý nghĩa
+:syntax on  Turn on syntax highlighting
+:syntax off   Turn off syntax highlighting
+:set syntax=perl  Force syntax highlighting
+
+
+'
+SOME SCRIP USEFUL
+$ cat a.txt | sed -e s/int/INT/ > b.txt
+→ read a.txt, replace "int" by "INT" and write result into b.txt file
+
+SED command
+To print one line (5)
+$ sed -n 5p file.txt
+Line 5
+
+To print multiple lines (5 & 8)
+$ sed -n -e 5p -e 8p file.txt
+Line 5
+Line 8
+
+To print specific range (5 - 8)
+$ sed -n 5,8p file.txt
+Line 5
+Line 6
+Line 7
+Line 8
+
+To print range with other specific line (5 - 8 & 10)
+$ sed -n -e 5,8p -e 10p file.txt
+Line 5
+Line 6
+Line 7
+Line 8
+Line 10
+
+Print first/last line in a file:
+* First
+$ head -3 file.txt
+* Last
+$ tail -3 file.txt
+
+bash function
+function A()
+{
+  #command
+  pass=$(grep -w OK $1 | wc -l)
+
+  ...
+}
+call:
+name=log.log
+A $name
+
+
+'
+Yocto
+\\rvc-vnas-01\RCarSW\rvc_git_repo\yocto\_YOCTO_IMAGES_\Gen3\v2.23.0\Images\MMP\H3
+'
+LINUX
+// 32 or 64?!
+ $ uname -a
+ $ arch
+ $ uname -m 
+GCC
+ $ gcc -dumpversion
+ $ gcc --version
+ $ whereis gcc
+ // Change GCC
+ $ echo 'export CXX=/usr/bin/gcc-3.3' >> ~/.bashrc
+ $ which gcc
+Build source include Math lib => ADD flag -lm
+>>> gcc disp_diff.c -o diffDispYUV
+/tmp/ccOvnwYi.o: In function `main`:
+disp_diff.c:(.text+0x17d3): undefined reference to `pow`
+disp_diff.c:(.text+0x182e): undefined reference to `pow`
+disp_diff.c:(.text+0x232a): undefined reference to `pow`
+disp_diff.c:(.text+0x2367): undefined reference to `pow`
+disp_diff.c:(.text+0x2e57): undefined reference to `pow`
+/tmp/ccOvnwYi.o:disp_diff.c:(.text+0x2e94): more undefined references to `pow` follow
+collect2: ld returned 1 exit status
+[10:09am][(^_^)@rvc-app06][/shsv/SoftIP/20_user/hieutrungdang/tool/disp_diff]                                             
+>>> gcc -m32 disp_diff.c -o DiffDispYUV -lm
+
+App killed
+- watch error code: $ echo $?
+- search that error code
+Exit Code Number     Meaning                        Example                 Comments
+1                   Catchall for general errors     let "var1 = 1/0"          Miscellaneous errors, such as "divide by zero" and other impermissible operations
+2                   Misuse of shell builtins        empty_function() {}       Missing keyword or command
+126                 Command invoked cannot execute  /dev/null                 Permission problem or command is not an executable
+127                 "command not found"             illegal_command           Possible problem with $PATH or a typo
+128                 Invalid argument to exit        exit 3.14159              exit takes only integer args in the range 0 - 255 (see first footnote)
+128 +n              Fatal error signal "n"          kill -9 $PPID of script   $? returns 137 (128 + 9)
+130                 Script terminated by Control-C  Ctrl-C                    Control-C is fatal error signal 2, (130 = 128 + 2, see above)
+255*                Exit status out of range        exit -1                   exit takes only integer args in the range 0 - 255
+======================================================================
+LINUX COMMANDS
+---
+AWK command
+ ex: -rw-rw-r-- 1 hieutrungdang grp-ssg 36 Oct 17 13:59 revise_env.log
+ col |---------|-|-------------|-------|--|---|--|-----|--------------
+     |   1     |2|    3        |  4    |5 | 6 |7 | 8   | 9
+
+ $ ls -l revise_env.log | awk '{print $5}' # print col 5, or {print $5 $6}...
+ > result: 36
+ ...awk -F "," '{print $3}' : change break col character
+
+ldd command
+- ldd, which you can use to access shared object dependencies.
+$ ldd -v <ex.so>
+
+nm command: 
+- The nm commands provides information on the symbols being used in an object file or executable file.
+$nm -D <ex.so or executefile> # Display Dynamic Symbols in an Executable
+
+
+'
+HG
+$ hg pull
+$ hg up
+- tip1 - View differences between two changesets on one file:
+  hg diff -r <first_revision_number>:<other_revision_number> filename
+  that will do it
+  e.g hg diff -r 0:1 default.aspx
+
+Mercurial Commands
+Commands             Description
+$ hg pull              get latest changes like git pull use flags like -u IDK why yet
+$ hg add               only for new files
+$ hg commit            add changes to commit with -m for message just like git
+$ hg addremove         adds new files and removes file not in your file system
+$ hg incoming          see changes commited by others
+$ hg outgoing          see local commits
+$ hg commit --amend    same as git commit --amend
+$ hg record filename   shows history of changes to file uses extension
+$ hg merge             like a git merge http://hgbook.red-bean.com/read/a-tour-of-mercurial-merging-work.html
+$ hg log -r tip        tip changelog
+$ hg log -l 5          last 5 changelog statuses
+$ hg status -m         show modified files only
+$ hg status -r         show removed files only
+$ hg status -a         show added files only
+$ hg strip "0000"      remove commit from history and delete changes before push, if pushed you are fucked
+$ hg log -u email@accout.com                  see all account commits | type -v for a verbose version
+$ hg diff -r 0000:0000 /dir/location/path     Diff versions of same file from different CHANGESET
+$ hg diff | less; hg commit                   show changes committed
+$ hg out                                      See what is not pushed to remote branch
+$ hg update 0000                              CHANGESET = 0000 or branchname
+$ hg checkout branch                          works like a git checkout branch
+$ hg record                                   shows record of pending changes
+$ hg update -C                                resets your head and removes commits not pushed like git reset --hard
+$ hg backout 0000                             CHANGESET = 0000 like a git revert tag/hash
+$ hg blame or hg annotate                     same as a git blame
+$ hg bisect                                   lets you test inbetween commits to find bugs http://mercurial.selenic.com/wiki/BisectExtension
+$ hg shelve                                   like a git stash (Requires the ShelveExtension or the AtticExtension.)
+$ hg graft --edit 0000                        lets you pick what changes to push to default or commit CHANGESET = 0000 git cherry-pick <commit> http://selenic.com/hg/help/graft
+$ hg graft --edit 0000::0005                  add a series of commits from 0000 to 0005 as a batch
+$ hg heads                                    shows changes in child and parent branches
+$ hg identify --num                           current changeset
+$ hg branch feature                           go to default branch and use this command to create a new branch namded "feature" based off of it
+$ hg commit --close-branch -m 'closing this branch'   Inside branch you want to close commit this and push so branch disapears and keeps your coworkers happy
+$ note                                        Hg .hgignore, syntax: glob is the same behaviour as git's .gitignore.
+
+// Hg status
+hg st -m // modified
+hg st -a // add
+hg st -r // remove
+
+'
+
+
+'
+Change owner
+$ chown <user>:<project-name> <file>
+=> mean: allow all people in <project-name> can rwe  
+'
+WATCH GLOBAL CONFIG IN GIT
+---
+$ git config --list
+, or look at your ~/.gitconfig file. 
+Local config will be in your repository s .git/config file.
+'
+Auto sent email when committing on git
+    git config --global sendemail.smtpencryption tls
+    git config --global sendemail.smtpserver smtp.office365.com
+    git config --global sendemail.smtpuser [EMAIL ADDRESS]
+    git config --global sendemail.smtpserverport 587
+    git config --global sendemail.smtppass [EMAIL PASS WORD]
+
+    git config --global user.name "TÊN người gửi"
+    git config --global user.email "EMAIL người gửi"
+    git config --global sendemail.confirm never 
+
+    git format-patch --cover-letter
+
+    git config sendemail.to '  
+    Thanh Vu <thanh.vu.gx@renesas.com>;
+    Thao Luong <thao.luong.uw@renesas.com>; 
+    Hieu Dang <hieu.dang.wz@renesas.com>; 
+    Phuc Bui <phuc.bui.ym@rvc.renesas.com>; 
+    Hoang Bui <hoang.bui.fz@renesas.com>'
+
+→ Note: need config in ~/.gitconfig
+
+
+'
+======= Makefile  =================
+1. "?=" indicates to set the KDIR variable only 
+   if it's not set/doesn't have a value.
+ex:
+KDIR ?= "foo"
+KDIR ?= "bar"
+test:
+    echo $(KDIR)
+
+Would print "foo"
+
+2. Warning option
+-Werror  : Make all warnings into errors.
+-Wall or -Wunused is also specified, warn about unused arguments.
+-Wshadow : Warn whenever a local variable 
+           shadows another local variable, 
+           parameter or global variable or 
+           whenever a built-in function is shadowed. 
+-Wall    : This enables all the warnings about constructions that 
+           some users consider questionable, and that are easy to 
+           avoid (or modify to prevent the warning), even in 
+           conjunction with macros. This also enables some 
+           language-specific warnings described in C++ Dialect 
+           Options and Objective-C Dialect Options.
+3. vpath %.h ../headers
+tells make to look for any prerequisite whose name ends in .h in the directory ../headers 
+if the file is not found in the current directory.
+  vpath %.c foo    |
+  vpath %   blish  => will look for a file ending in ‘.c’ in foo, then blish, then bar
+  vpath %.c bar    |
+
+  vpath %.c foo:bar |__ will look for a file ending in ‘.c’ in foo, then bar, then blish. 
+  vpath %   blish   | 
+
+
+'
+=========================================================
+||                 Run GDB                             ||
+=========================================================
+||  gdb avc_enc_model
+||  <maybe set break point here!>
+||  run <input command: ex: -i enc.264 >
+||  <=> avc_dec -i enc.264
+||  s    : step
+||  n    : next
+||  p    : print
+||  list : Show the line that execution has paused at, 
+||         and surrounding lines of code.
+||  q    : quit
+||  bt   : function call
+||  break <file>:<line_num> : set breakpoint
+||  c    : jump to next breakpoint
+||  display <x>  : tracking value of x via each line of code
+||  undisplay <x>: untracking 
+||  l    : list 10 lines of code will be run
+||	set x = 10: try with another value
+|| ======================================================
+||  watch a1        : Watch variable change (before type 'r')
+||	watch *0x601080 : Watch address change (before type 'r')
+||	watch $rax      : Watch register change
+||  ===================================================== 
+||  info macro ADD  : see info of macro ADD
+||  macro expand ADD: expand how macro work
+||  macro list      : List all the macros defined using the 
+||                    macro define command.
+||  call X()        : get result from X() function
+||  ======================================================
+||  How to debug with address core dump error
+||	signal 11 received 
+||  EIP address = 0x400702
+||  Segmentation fault (core dumped)
+||  >>> gdb ./app
+||  >>> (gdb) l *0x400702
+||  0x400702 is in f1 (./a.c:45).
+||  40		{
+||  41			if(i % 20 == 0)
+||  42				a1++;
+||  43			f2();
+||  44		}
+||  45		*p=100;
+||  46	}
+||  47	int arr[1000];
+||  48	
+||  49	void main()
+========================================================
+'
+======= FreeCommander XE ==========
+1. Preview content of file: Ctrl + Q
+2. Open cmd windows at appointed place: Ctrl + D
+
+'
+Redmine
+1. Insert code C
+  <pre><code class="c">
+  ...
+  </code></pre>
+
+2. Colorful character
+  %{color:red;}word% 
+
+
+'
+OpenVirtualMachine: Fn + F12
+'
+VisualStudio
+- Ctrl + M, Ctrl + O : collapse all methods
+- Ctrl + M, Ctrl + L : un_collapse all methods
+===========================================
+'
+EXCEL
+1. Hold down the ALT + F11 keys, and it opens the Microsoft Visual Basic for Applications window.
+2. Click Insert > Module, and paste the following code in the Module Window.
+
+Script VB to highlight selected cell in excel
+
+Private Sub Worksheet_SelectionChange(ByVal Target As Range)
+Application.ScreenUpdating = False
+Cells.Interior.ColorIndex = 0
+Target.Interior.Color = vbYellow
+Application.ScreenUpdating = True
+End Sub
+
+Sub Worksheet_SelectionChange(ByVal Target As Excel.Range)
+'Update 20140318
+Static xRow
+Static xColumn
+If xColumn <> "" Then
+    With Columns(xColumn).Interior
+        .ColorIndex = xlNone
+    End With
+    With Rows(xRow).Interior
+        .ColorIndex = xlNone
+    End With
+End If
+pRow = Selection.Row
+pColumn = Selection.Column
+xRow = pRow
+xColumn = pColumn
+With Columns(pColumn).Interior
+    .ColorIndex = 6
+    .Pattern = xlSolid
+End With
+With Rows(pRow).Interior
+    .ColorIndex = 6
+    .Pattern = xlSolid
+End With
+End Sub
+
+
+
+- F4 key is used for repeat the previous action 
+'
+=========================================
+Sublime text
+===
+- Search file : Ctrl + P 
+- Collapse all: Ctrl + K, Ctrl + 1
+- Multi-cursor on multi-line: Ctrl + Alt + <↑ or ↓>
+- multi-line select: Shift + right mouse
+- Upper-case a string: Ctrl + K, Ctrl + U
+- Lower-case a string: Ctrl + K, Ctrl + L
+- Add tab, backward a tab: "Ctrl + [" or "Ctrl + ]"
+- Select all content in "(" ")": Ctrl + Shift + M
+- Select a line and the next line... : Ctrl + L 
+- Select and set pointer in next same word: Ctrl + D
+- Duplicate the current line: Ctrl + Shift + D 
+- UndoCloseTabs: Ctrl+Shift+;
+- List functions: Ctrl + Shift + P -> Browser Outline: Left, Right, or Close
+'
+=========================================
+Geany
+===
+- Comment/Uncomment code.: CtrL+E
+- Mark line..............: Ctrl+M
+- Goto marked line.......: Ctrl+,
+- Highlight all reference: Ctrl+Shift+M
+- Multi-line edit .......: Ctrl + Alt + <Left mouse>
+- Find definition of a variable or a function: Ctrl + <Left mouse click on it> 
+- Back/Forward to last/current position      : Alt + <Left>/<Right>
+
+ 
+// My summary
+Codec la 1 chuan nen video or audio
+VP9 VP8 H264, MP3... 
+1 format la 1 file container ma no chua nhieu hon 1 codec
+audio, video or even data ex .mp4, .avi
+
+B-frame can be dropped
+
+-----------------------------------------
+YUV uses properties of the human eye to prioritize information. 
+Y 	: the black and white (luminance) image, 
+U, V: the color difference (chrominance) images.
+HEVC: (High Efficiency Video Coding) (H.265)
+
+ARM, previously Advanced RISC Machine, 
+originally Acorn RISC Machine, is a family 
+of reduced instruction set computing (RISC) 
+architectures for computer processors, configured 
+for various environments.
+'
+-------------------------------------------
+What is continuous integration (CI)?
+
+Continuous integration (CI) is a software engineering practice in which isolated 
+changes are immediately tested and reported on when they are added to a larger code 
+base. The goal of CI is to provide rapid feedback so that if a defect is introduced 
+into the code base, it can be identified and corrected as soon as possible. Continuous 
+integration software tools can be used to automate the testing and build a document trail.
+-------------------------------------------
+notepad++
+- delete line     : Ctr+Shift+L; Ctrl+L
+- search result   : F7 
+- run python script: F5 -> paste string: cmd /K python "$(FULL_CURRENT_PATH)"
+
+-------------------------------------------
+VISUAL STUDIO
+format code: Ctr + K; Ctr + F
+-------------------------------------------
+SEARCH STRING IN TEXT FILE
+How to grep correctly name
+ex: file A:
+abc_xyz   = 2
+abc_xyz_a = 1
+===
+-> $ grep "abc_xyz" xxx   => it will grep all "abc_xyz" string
+-> $ grep "abc_xyz\>" xxx => it will grep "abc_xyz" string exactly
+
+$ grep <"string"> <path> -nwR
+$ grep --include='*.c' <"string"> <path> -Rnw
+$ grep -rw . -e "g_strdelimit"
+$ grep -rn "String to search" /path/to/directory/or/file : -r: recursive search n: line number will be shown for matches
+$ grep -rnw '/path/to/somewhere/' -e 'pattern'
+
+    -r or -R is recursive,
+    -n is line number, and
+    -w stands for match the whole word.
+    -l (lower-case L) can be added to just give 
+    the file name of matching files.
+
+Along with these, --exclude, --include, --exclude-dir 
+flags could be used for efficient searching:
+
+    This will only search through those files which 
+    have .c or .h extensions:
+    grep --include=\*.{c,h} -rnw '/path/to/somewhere/' -e "pattern"
+
+    This will exclude searching all the files ending 
+    with .o extension:
+    grep --exclude=*.o -rnw '/path/to/somewhere/' -e "pattern"
+
+    For directories it's possible to exclude a particular 
+    directory(ies) through --exclude-dir parameter. For example, 
+    this will exclude the dirs dir1/, dir2/ and all of them matching *.dst/:
+
+    grep --exclude-dir={dir1,dir2,*.dst} -rnw '/path/to/somewhere/' -e "pattern"
+
+-------------------------------------------
+SET IP
+$ sudo vi /etc/network/interfaces
+-------------------------------------------
+REMOVE PROXY
+$ unset http_proxy
+or: 
+$ set NO_PROXY=""
+-------------------------------------------
+GET SIZE OF FILE BASHSCRIPT
+file_size_kb=`du -k "$filename" | cut -f1`
+-------------------------------------------
+CHANGE PASS UBUNTU
+$ sudo passwd rvc
+(pass su: s, pass rvc 1)
+-------------------------------------------
+WATCH CPU, RAM,...
+$ top -d 1 -b | grep gst-launch 
+-------------------------------------------
+to watch which group you join.
+$ groups
+-------------------------------------------
+COLOR IN TEMINAL
+---
+Black        0;30     Dark Gray     1;30
+Red          0;31     Light Red     1;31
+Green        0;32     Light Green   1;32
+Brown/Orange 0;33     Yellow        1;33
+Blue         0;34     Light Blue    1;34
+Purple       0;35     Light Purple  1;35
+Cyan         0;36     Light Cyan    1;36
+Light Gray   0;37     White         1;37
+
+echo -e "\e[1mbold\e[0m"
+echo -e "\e[3mitalic\e[0m"
+echo -e "\e[4munderline\e[0m"
+echo -e "\e[9mstrikethrough\e[0m"
+echo -e "\e[31mHello World\e[0m"
+echo -e "\x1B[31mHello World\e[0m"
+
+And then use them like this in your script:
+
+#    .---------- constant part!
+#    vvvv vvvv-- the code from above
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+printf "I ${RED}love${NC} Stack Overflow\n"
+-------------------------------------------
+git
+1. Get diff from 2 folders
+git diff --no-index dir1/ dir2/
+
+Git
+
+- ignore the mode of file in Linux:
+phenomenal:
+  delete mode 100644 xxxx
+  create mode 100644 xxxx
+
+$ git config --local core.fileMode false
+or
+$ git config --global core.fileMode false
+
+→ Create a remote branch
+<current checkout branch: develop>
+$ git flow init -d 
+$ git flow feature start <branch name>
+$ git flow feature publish <branch name>
+===============================================
+
+
+
+→ diff between new with old:
+$ git diff <old_commit> <new_commit>
+
+→ Edit message commit
+git commit --amend and press Enter
+
+→ Add color of git
+$ git config --global --add color.ui true
+
+→ Trace diff a file (use tool)
+c1: $ gitk <path_of_file>
+// Watch change of all commit
+c2: $ git log -p <path_of_file>
+
+c3: $ git log --follow -p -- file
+/*This will show the entire history 
+of the file (including history beyond 
+renames and with diffs for each change).
+In other words, if the file named bar was 
+once named foo, then git log -p bar (without 
+the --follow option) will only show the file`s 
+history up to the point where it was renamed -- 
+it won`t show the file`s history when it was known 
+as foo. Using git log --follow -p bar will show the 
+file`s entire history, including any changes to the 
+file when it was known as foo. The -p option ensures 
+that diffs are included for each change.*/
+
+→ Remove a commit
+$ git reset --hard HEAD~1
+or:
+$ git reset --hard <sha1-commit-id>
+_ note _ 
+- "git reset --hard" WILL DELETE YOUR WORKING DIRECTORY CHANGES.
+- "git stash" any local changes you want to keep
+
+=> Solve Connection refuse when using 'git clone' command
+
+git config --global http.proxy http://<username>:<passWin>@<proxy>:8080
+
+- <proxy> ex: 172.29.137.2 (renesas) <Can see 
+  it in network config of browser>
+-------------------------------------------
+http://172.29.143.164:8080/issues/3562
+
+=> Solve cannot ssh to server git...
+Add RSA key into Git lab
+
+-> Generate a rsa code
+$ ssh-keygen -t rsa -C "<email>" -b 4096
+$ cat ~/.ssh/id_rsa.pub
+Paste it into SSH keys (Git Lab)
+-------------------------------------------
+Watch version of Ubuntu
+lsb_release -a
+-------------------------------------------
+Tra từ trên google:
+what is <word> mean
+-------------------------------------------
+Auto present slide
+Alt + S, B
+-------------------------------------------
+Split word to line by line
+1. Select
+2. Alt + F3
+3. Enter
+-------------------------------------------
+This article will guide you how to resize a 
+virtual machine using VirtualBox program on 
+Windows 7 PC
+
+Content:
+
+Step 1: Find the location where the virtual 
+machine is stored (it is usually stored in 
+“C:\Workspace”)
+
+Step 2: Resize the hard disk of the machine
+
+- Go to folder “C:\Program Files\Oracle\VirtualBox” 
+by using cmd
+
+# cd “C:\Program Files\Oracle\VirtualBox”
+
+- Use VBoxManage.exe with option modifyhd 
+to resize the hard disk
+
+# VBoxManage.exe modifyhd “C:\Workspace\Ubuntu1010_v3\Ubuntu1010.vdi” –resize 51200
+
+NOTE:
+
+    The above command will resize the hard disk to 50GB (50*1024MB)
+    Ubuntu1010.vdi is a machine created by using VirtualBox program
+
+- If the machine is created by using VMware Player, 
+use VBoxManage.exe with option clonehd to convert the 
+hard disk from .vmdk to .vdi type, then use option 
+modifyhd to resize the hard disk
+
+# VBoxManage.exe clonehd “C:\Workspace\Ubuntu1010_v3\Ubuntu1010.vmdk” “C:\Workspace\Ubuntu1010_v3_vdi\Ubuntu1010.vdi” –format vdi
+
+# VBoxManage.exe modifyhd “C:\Workspace\Ubuntu1010_v3_vdi\Ubuntu1010.vdi” –resize 51200
+
+Step 3: Boot the machine from virtual CD/DVD (for example: 
+ubuntu-10.10-desktop-i386.iso) then run Gparted to resize 
+partitions
+-------------------------------------------
+
+Definition
+- The kernel interacts with I/O devices by means of device drivers. 
+
+'
+OPTIMIZE build source code in GCC
+gcc -O option flag
+
+Set the compiler`s optimization level.
+option      optimization  level                                execution time  code size   memory usage    compile time
+-O0         optimization for compilation time (default)         +                    +           -             -
+-O1 or -O   optimization for code size and execution time       -                    -           +             +
+-O2         optimization more for code size and execution time  --                               +             ++
+-O3         optimization more for code size and execution time  ---                              +             +++
+-Os         optimization for code size                                               --                        ++
+-Ofast      O3 with fast none accurate math calculations        ---                              +             +++
+
++increase ++increase more +++increase even more -reduce --reduce more ---reduce even more
+
+'
+FIND
+
+find . -type f -name "*.h" -exec file {} \;
+
+basic 'find file' commands
+--------------------------
+find / -name foo.txt -type f -print             # full command
+find / -name foo.txt -type f                    # -print isn't necessary
+find / -name foo.txt                            # don't have to specify "type==file"
+find . -name foo.txt                            # search under the current dir
+find . -name "foo.*"                            # wildcard
+find . -name "*.txt"                            # wildcard
+find /users/al -name Cookbook -type d           # search '/users/al' dir
+
+search multiple dirs
+--------------------
+find /opt /usr /var -name foo.scala -type f     # search multiple dirs
+
+case-insensitive searching
+--------------------------
+find . -iname foo                               # find foo, Foo, FOo, FOO, etc.
+find . -iname foo -type d                       # same thing, but only dirs
+find . -iname foo -type f                       # same thing, but only files
+
+find files with different extensions
+------------------------------------
+find . -type f \( -name "*.c" -o -name "*.sh" \)                       # *.c and *.sh files
+find . -type f \( -name "*cache" -o -name "*xml" -o -name "*html" \)   # three patterns
+
+find files that don't match a pattern (-not)
+--------------------------------------------
+find . -type f -not -name "*.html"                                # find all files not ending in ".html"
+
+find files by text in the file (find + grep)
+--------------------------------------------
+find . -type f -name "*.java" -exec grep -l StringBuffer {} \;    # find StringBuffer in all *.java files
+find . -type f -name "*.java" -exec grep -il string {} \;         # ignore case with -i option
+find . -type f -name "*.gz" -exec zgrep 'GET /foo' {} \;          # search for a string in gzip'd files
+
+5 lines before, 10 lines after grep matches
+-------------------------------------------
+find . -type f -name "*.scala" -exec grep -B5 -A10 'null' {} \;
+     (see http://alvinalexander.com/linux-unix/find-grep-print-lines-before-after-search-term)
+
+find files and act on them (find + exec)
+----------------------------------------
+find /usr/local -name "*.html" -type f -exec chmod 644 {} \;      # change html files to mode 644
+find htdocs cgi-bin -name "*.cgi" -type f -exec chmod 755 {} \;   # change cgi files to mode 755
+find . -name "*.pl" -exec ls -ld {} \;                            # run ls command on files found
+
+find and copy
+-------------
+find . -type f -name "*.mp3" -exec cp {} /tmp/MusicFiles \;       # cp *.mp3 files to /tmp/MusicFiles
+
+copy one file to many dirs
+--------------------------
+find dir1 dir2 dir3 dir4 -type d -exec cp header.shtml {} \;      # copy the file header.shtml to those dirs
+
+find and delete
+---------------
+find . -type f -name "Foo*" -exec rm {} \;                        # remove all "Foo*" files under current dir
+find . -type d -name CVS -exec rm -r {} \;                        # remove all subdirectories named "CVS" under current dir
+
+find files by modification time
+-------------------------------
+find . -mtime 1               # 24 hours
+find . -mtime -7              # last 7 days
+find . -mtime -7 -type f      # just files
+find . -mtime -7 -type d      # just dirs
+
+find files by modification time using a temp file
+-------------------------------------------------
+touch 09301330 poop           # 1) create a temp file with a specific timestamp
+find . -mnewer poop           # 2) returns a list of new files
+rm poop                       # 3) rm the temp file
+
+find with time: this works on mac os x
+--------------------------------------
+find / -newerct '1 minute ago' -print
+
+find and tar
+------------
+find . -type f -name "*.java" | xargs tar cvf myfile.tar
+find . -type f -name "*.java" | xargs tar rvf myfile.tar
+     (see http://alvinalexander.com/blog/post/linux-unix/using-find-xargs-tar-create-huge-archive-cygwin-linux-unix
+     for more information)
+
+find, tar, and xargs
+--------------------
+find . -name -type f '*.mp3' -mtime -180 -print0 | xargs -0 tar rvf music.tar
+     (-print0 helps handle spaces in filenames)
+     (see http://alvinalexander.com/mac-os-x/mac-backup-filename-directories-spaces-find-tar-xargs)
+
+find and pax (instead of xargs and tar)
+---------------------------------------
+find . -type f -name "*html" | xargs tar cvf jw-htmlfiles.tar -
+find . -type f -name "*html" | pax -w -f jw-htmlfiles.tar
+     (see http://alvinalexander.com/blog/post/linux-unix/using-pax-instead-of-tar)
+//==========================================================================================================================
+//==========================================================================================================================
+// GREP
+//==========================================================================================================================
+search for a string in one or more files
+----------------------------------------
+grep 'fred' /etc/passwd              # search for lines containing 'fred' in /etc/passwd
+grep fred /etc/passwd                # quotes usually not when you don't use regex patterns
+grep null *.scala                    # search multiple files
+
+
+case-insensitive
+----------------
+grep -i joe users.txt                # find joe, Joe, JOe, JOE, etc.
+
+
+regular expressions
+-------------------
+grep '^fred' /etc/passwd             # find 'fred', but only at the start of a line
+grep '[FG]oo' *                      # find Foo or Goo in all files in the current dir
+grep '[0-9][0-9][0-9]' *             # find all lines in all files in the current dir with three numbers in a row
+
+
+display matching filenames, not lines
+-------------------------------------
+grep -l StartInterval *.plist        # show all filenames containing the string 'StartInterval'
+grep -il StartInterval *.plist       # same thing, case-insensitive
+
+
+show matching line numbers
+--------------------------
+grep -n we gettysburg-address.txt    # show line numbers as well as the matching lines
+
+
+lines before and after grep match
+---------------------------------
+grep -B5 "the living" gettysburg-address.txt        # show all matches, and five lines before each match
+grep -A10 "the living" gettysburg-address.txt       # show all matches, and ten lines after each match
+grep -B5 -A5 "the living" gettysburg-address.txt    # five lines before and ten lines after
+
+
+reverse the meaning
+-------------------
+grep -v fred /etc/passwd             # find any line *not* containing 'fred'
+grep -vi fred /etc/passwd            # same thing, case-insensitive
+
+grep --color -Rn --include=\*.cpp --include=\*.h "string" .
+=> grep --color -Rn --include=\*.{c,cpp,h} "string" .
+find . -name '*.h' -o -name '*.cpp' -exec grep "CP_Image" {} \; -print
+
+grep in a pipeline
+------------------
+ps auxwww | grep httpd               # all processes containing 'httpd'
+ps auxwww | grep -i java             # all processes containing 'java', ignoring case
+ls -al | grep '^d'                   # list all dirs in the current dir
+
+
+search for multiple patterns
+----------------------------
+egrep 'apple|banana|orange' *                                                         # search for multiple patterns, all files in current dir
+egrep -i 'apple|banana|orange' *                                                      # same thing, case-insensitive
+egrep 'score|nation|liberty|equal' gettysburg-address.txt                             # all lines matching multiple patterns
+locate -i calendar | grep Users | egrep -vi 'twiki|gif|shtml|drupal-7|java|PNG'       # oh yeah
+       (see http://alvinalexander.com/linux-unix/linux-egrep-multiple-regular-expressions-regex)
+
+
+multiple search strings, multiple filename patterns
+---------------------------------------------------
+grep -li "jtable" $(find . -name "*.java,v" -exec grep -li "prevayl" {} \;)           # find all files named "*.java,v" containing both
+                                                                                      # 'prevayl' and 'jtable'
+
+grep + find
+-----------
+find . -type f -exec grep -il 'foo' {} \;     # print all filenames of files under current dir containing 'foo', case-insensitive
+
+find . -type f -name "*log*" -exec grep -rn "warning" {} \;
+
+
+
+recursive grep search
+---------------------
+grep -rl 'null' .                             # similar to the previous find command; does a recursive search
+grep -ril 'null' /home/al/sarah /var/www      # search multiple dirs
+egrep -ril 'aja|alvin' .                      # multiple patterns, recursive
+      (see http://alvinalexander.com/linux-unix/recursive-grep-r-searching-egrep-find)
+
+
+grep gzip files
+---------------
+zgrep foo myfile.gz                           # all lines containing the pattern 'foo'
+zgrep 'GET /blog' access_log.gz               # all lines containing 'GET /blog'
+zgrep 'GET /blog' access_log.gz | more        # same thing, case-insensitive
+//===================================================================================================
+ASCII
+☆.´ `. ☽¸.☆
+(͡๏̯͡๏)(͡๏̯͡๏)
+(,,)(,,).
+¯**´¯**´¯`
+ಠ̯ಠ (๏̯͡๏) ‹(•¿•)› ಠ_ಠ *-_-* ((ºLº)) ㋡ ︻╦╤─ ♥Ƹ̵̡Ӝ̵̨̄Ʒ♥ ✄ ☮ 【ツ】√ ╰☆╮
+cxxxxx][=========>
+  ╦̵̵̿╤─ ҉ ~ •
+   ︻╦╤─  
+      ︻デ═一
+`·.¸¸ ><((((º>.·´¯`·><((((º>      
+ ¸.·´¯`·.´¯`·.¸¸.·´¯`·.¸><(((º>
+
+                             ><((((>
+o()xxxx[{::::::::::::::::::::::::::::::::::>
+o==[]::::::::::::::::>
+o==[]=========>
+▬▬ι═══════> 
+ )xxx[::::::::::>
+ ┌∩┐(◣_◢)┌∩┐
+  ℓ٥ﻻ ﻉ√٥υ      ⓛⓞⓥⓔ
+  ~~(__^·>
+
+// ==========
+// LCOV
+// ==========
+1. remove unwanted files (in html report)
+$ lcov -c -d . -o result.info --rc lcov_branch_coverage=1
+$ lcov --remove result.info 'test/ut/vspm_drv_lib_ut/UT/stub/*' \
+                            'test/ut/vspm_drv_lib_ut/UT/utmain/*' \
+                            '/usr/include/*' #// <------ this line raises an error because maybe you don't have permission on this folder
+        -o final.info --rc lcov_branch_coverage=1
+$ genhtml -o coverage final.info --branch-coverage
+
+
+
+//=======================================
+//TOP COMMANDS
+//=======================================
+$ top -u root # list all process of user root
+$ top -o %CPU
+Sorting the process list: <press characters>
+    ‘M’ to sort by memory usage
+    ‘P’ to sort by CPU usage
+    ‘N’ to sort by process ID
+    ‘T’ to sort by the running time 
+
+// Build OMX
+
+$ git clone /shsv/SoftIP/07_videomw/01_projects/12_omx/03_input/Repos/Turmeric/s434b/.git
+cd s434b
+$ git checkout a182551a57528733c22e2ead5c647a1922c51d2f
+#Apply patch. Patch file @ S:\07_videomw\01_projects\12_omx\09_redmine\92921
+$ patch -p1 < patch_mmngr_if.patch
+$ patch -p1 < patch_parse_video.patch
+$ patch -p1 < porting_qnx_s434b_replaced_softlink_by_cp.patch
+
+# Start build
+$ cd <path to your repo>/s434b/Sandbox/Jenkins
+$ export QNX_ENVFILE=/opt/qnx700/qnxsdp-env.sh
+$ source misc/env/turmeric_proj_env
+$ source misc/env/configuration/qnx/gcc64
+# Build OMX. Binaries are generated @ workspace_gen3/build_omxr/output/
+$ rake do_build:omx
+# Build driver. Binaries are generated @ workspace_gen3/build_driver/output/
+$ rake do_build:driver
+# Build demo_app. Binaries are generated @ workspace_gen3/build_driver/output/
+$ rake do_build:test
+
+# Apply modifying to fixing hang-up issue
+- First modifying: 
+Remove dump info of uvcs_pic in demo_app http://172.29.143.164:8080/issues/31679#note-14
+- Second  modifying: unify uvc_dec.h referred by demo_app and omx.
+Copy uvcs_dec.h in s434c/src/uvcs/dec/include/uvcs_dec.h into s434b/Sandbox/Base/app/demo/
+Rebuild omx/driver/demo_app as above.
+
+Build OMX QNX
+$ cd s434b/
+$ cd s434b/Sandbox/Jenkins
+$ source ./misc/env/turmeric_proj_env
+$ source ./misc/env/configuration/qnx/gcc64
+$ source /opt/qnx700/qnxsdp-env
+$ rake do_build:omx
+Output can be found at: s434b/Sandbox/Jenkins/workspace_gen3/build_omxr/output
+
+
+Steps to build drivers(UVCS, VSPM, MMNGR) using rake task:
+Continue from previous 'rake do_build:omx' task:
+$ rake do_build:driver
+Please note that this task requires task do_build:omx executed (successfully) first.
+Output can be found at: s434b/Sandbox/Jenkins/workspace_gen3/build_driver/output
+
+
+make Tab auto-completion case-insensitive in Bash:
+echo "bind 'set completion-ignore-case on'" >> ~/.bashrc
+
+// C/C++ useful tip
+// - good Macro
+// ALIGNMENT 1 number ex: ceil(11, 3) -> 12 because 12 % 3 = 0
+#define CEIL(a, b) ( ((a)+(b))-1 ) & (~ ((b)-1) )
+
+py to exe
+$ auto-py-to-exe
+
+# TEST experience
+1. Chu' y' extern function co' dc declare trong *.h
+2. Stub dda~ dc declare trong file .h chu*a
+3. Count test case: using extern variable
+Review Code:
+- make diff.patch
+
+Note for commit:
+- test code:    [TEST]
+- test env:     [ENV]
+- product code: [P]
+
+* Color in ticket!
+%{color:red;} <xxxxx>%
+
+* Change time / date creating / modifying file
+Using: $ touch -m -t <time: mmddhhmm> <file>
+ex: change file readme.txt to Sep 10 21:00
+=> $ touch -m -t 09102100 readme.txt
+PS: You can change the modification date to the past too, 
+    for 10/15/1998 12:30 the command would be something like this:
+    touch -m -t 19981015123000 file
+
+
+- Built-in function:
+  A function that is built-in, is in essence a part of the language.
+  example <Python 3>: print(), abs(),... => that are built-in function
+
+- Boot board
+1. Change mode to Hyperflash, edit switch 10: 1, 2 on, remains is off
+2. screen: sent window
+3. Open macro and write IPL
+4. Edit switch 10 (refer running board)
+<org: all on except 7>
+==========================================
+
+Draw class diagram in EA:
+- First of all: draw base class
+- Inheritane: just make link and select which method need to override
+- void A() const; => Is Query
+- const void A(); => const
+- virtual void A() = 0; => virtual + pure
+
+C++
+- constructor using {}: ex A() : _x{x}, _y{y}
+=> using when x, y have type: const int &
+
+
+
+Clang:
+-Wfoo
+    Enable warning “foo”. See the diagnostics reference for a complete list of the warning flags that can be specified in this way.
+
+-Wno-foo
+    Disable warning “foo”.
+
+-w
+    Disable all diagnostics.
+
+-Weverything¶
+    Enable all diagnostics.
+
+-pedantic
+    Warn on language extensions.
+
+
