@@ -43,3 +43,12 @@ $ ssh -p 2222 [user]@127.0.0.1
 🏖️
 _refs:_ https://dev.to/yassineselllami/how-to-ssh-into-ubuntu-vm-virtualbox-from-host-machine-1kii
 
+============== SOME CONNECTION ISUSES ==============
+1. Cannot ping to host PC from VM (Virtualbox)
+In Win 10, we can add an exception for Virtual machine as below:
+* Turn off VM and Virtualbox
+* Access to ```Windows Security```
+* Choose ```Allow an app throgh firewall```
+* Select ```Change settings```
+* If you don't see any available app listed in "Allowed apps and features" then select ```Allow another app``` and choose ```C:\Program Files\Oracle\VirtualBox\VirtualBoxVM.exe```. In ```Network types``` we select all (private and public)
+* Start Vitualbox and start VM. Check connection again! :D
