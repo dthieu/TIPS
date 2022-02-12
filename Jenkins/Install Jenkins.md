@@ -12,7 +12,7 @@ sudo apt-get install openjdk-8-jdk
 - Import trusted PGP Key for Jenkins
 ```bash
 wget  https://pkg.jenkins.io/debian-stable/jenkins.io.key -P ~/
-apt-key add jenkins.io.key
+sudo apt-key add jenkins.io.key
 # OK
 sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
 ```
